@@ -1,0 +1,104 @@
+{% extends "../common/logout.html" %}
+
+{% block hello %}
+hello world
+{% end %}
+{% block contents %}
+<form action="" id="domsel">
+<div id="my_form">
+
+<div class="form1_div">
+使用部门：<select name="user" form="domsel">
+{% for key,value in form_dict['user'].items() %}
+{% if 'default' in form_dict['user'] and key == form_dict['user']['default'] %}
+<option selected="selected" value="{{key}}">{{value}}</option>
+{% elif key != 'default' %}
+<option value="{{key}}">{{value}}</option>
+{% end %}
+{% end %}
+</select>
+</div>
+
+<div class="form1_div">
+线路：<select name="route" form="domsel">
+{% for key,value in form_dict['route'].items() %}
+{% if 'default' in form_dict['route'] and key == form_dict['route']['default'] %}
+<option selected="selected" value="{{key}}">{{value}}</option>
+{% elif key != 'default' %}
+<option value="{{key}}">{{value}}</option>
+{% end %}
+{% end %}
+</select>
+</div>
+
+<div class="form1_div">
+购买方：<select name="own" form="domsel">
+{% for key,value in form_dict['own'].items() %}
+{% if 'default' in form_dict['own'] and key == form_dict['own']['default'] %}
+<option selected="selected" value="{{key}}">{{value}}</option>
+{% elif key != 'default' %}
+<option value="{{key}}">{{value}}</option>
+{% end %}
+{% end %}
+</select>
+</div>
+
+<div class="form1_div">
+安全证书：<select name="https" form="domsel">
+{% for key,value in form_dict['https'].items() %}
+{% if 'default' in form_dict['https'] and key == form_dict['https']['default'] %}
+<option selected="selected" value="{{key}}">{{value}}</option>
+{% elif key != 'default' %}
+<option value="{{key}}">{{value}}</option>
+{% end %}
+{% end %}
+</select>
+</div>
+
+
+<span>
+<input type="submit" id="my_input_submit" value="查询">
+</span>
+</div>
+</form>
+
+{% if Stats %}
+
+<div id="domainlist">
+
+        <table>
+        <tr>
+        <th align="left">域名</th>
+        <th align="left">使用</th>
+        <th align="left">线路</th>
+        <th align="left">所属</th>
+        <th align="left">安全</th>
+        <th align="left">备注</th>
+        <th align="left">修改</th>
+        {% for stat in Stats %}
+        <tr>
+        <td align="left" >{{stat['domain']}}</td>
+        <td align="left" >{{stat['user']}}</td>
+        <td align="left" >{{stat['route']}}</td>
+        <td align="left" >{{stat['own']}}</td>
+        <td align="left" >{{stat['https']}}</td>
+        <td align="left" >{{stat['mark']}}</td>
+        <td align="left" ><a href="/domain/edit?dom={{stat['domain']}}">修改</a></td>
+        </tr>
+        {% end %}
+        </table>
+{% end %}
+</div>
+
+{% if pages_list %}
+<div id="pages">
+<a href="{{pages_list[0]}}"><<</a>
+<a href="{{pages_list[2]}}">上一页</a>
+<a>{{pages_list[1]}}</a>
+<a href="{{pages_list[3]}}">下一页</a>
+<a href="{{pages_list[4]}}">>></a>
+</div>
+{% end %}
+	</body>
+</html>
+{% end %}

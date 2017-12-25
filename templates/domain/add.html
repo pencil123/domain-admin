@@ -1,0 +1,67 @@
+{% extends "../common/logout.html" %}
+
+{% block hello %}
+hello world
+{% end %}
+{% block contents %}
+
+<div id="my_form">
+<div class="form1_div">
+添加域名
+</div>
+</div>
+
+
+<div id="single_info">
+
+<form action="" id="domsel" method = "post">
+
+<table>
+
+<tr><td>
+域名
+</td><td>
+<input type="text" name="domain">
+</td></tr>
+
+<tr><td class="parameter">使用部门</td><td><select name="user" form="domsel">
+{% for key,value in form_dict['user'].items() %}
+<option value="{{key}}">{{value}}</option>
+{% end %}
+</select>
+</td></tr>
+
+<tr><td class="parameter">线路</td><td><select name="route" form="domsel">
+{% for key,value in form_dict['route'].items() %}
+<option value="{{key}}">{{value}}</option>
+{% end %}
+</select>
+</td></tr>
+
+<tr><td class="parameter">购买方</td><td><select name="own" form="domsel">
+{% for key,value in form_dict['own'].items() %}
+<option value="{{key}}">{{value}}</option>
+{% end %}
+</select>
+</td></tr>
+
+<tr><td class="parameter">安全证书</td><td><select name="https" form="domsel">
+{% for key,value in form_dict['https'].items() %}
+<option value="{{key}}">{{value}}</option>
+{% end %}
+</select>
+</td></tr>
+
+<tr><td class="parameter">备注：</td><td>
+<input type="text" name="mark" form="domsel">
+</td></tr>
+</table>
+
+<input type="submit" id="right_change">
+
+</form>
+</div>
+</div>
+    </body>
+</html>
+{% end %}

@@ -1,0 +1,40 @@
+{% extends "../common/logout.html" %}
+
+{% block hello %}
+hello world
+{% end %}
+{% block contents %}
+
+
+<form action="" id="domsel">
+<div id="my_form">
+<div class="form1_div">
+请输入域名：<input type="text" name="dom">
+<input type="submit" value="查询">
+</div>
+</div>
+</form>
+
+{% if mesg %}
+<div id="message">
+    {{mesg}}
+</div>
+{% end %}
+
+{% if dom %}
+<div id="single_info">
+<table>
+<tr><td class="parameter">域名</td><td>{{dom['domain']}}</td></tr>
+<tr><td class="parameter">使用部门</td><td>{{dom['user']}}</td></tr>
+<tr><td class="parameter">域名线路</td><td>{{dom['route']}}</td></tr>
+<tr><td class="parameter">购买方</td><td>{{dom['own']}}</td></tr>
+<tr><td class="parameter">安全证书</td><td>{{dom['https']}}</td></tr>
+<tr><td class="parameter">备注</td><td></b>{{dom['mark']}}</td></tr>
+</table>
+<span id="right_change"><a href="/domain/edit?dom={{dom['domain']}}" >修改</a></span>
+</div>
+{% end %}
+</div>
+	</body>
+</html>
+{% end %}

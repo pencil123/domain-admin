@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>
+{% block hello %}Domains Management{% end %}
+</title>
+</head>
+<body>
+    <link href="{{ static_url("css/main.css") }}" rel="stylesheet">
+<script>
+function SetCookie()//两个参数，一个是cookie的名子，一个是值
+{
+	var name = "username"
+	var value = "grey"
+    var Days = 30; //此 cookie 将被保存 30 天
+    var exp  = new Date();    //new Date("December 31, 9998");
+    exp.setTime(exp.getTime() + Days*24*60*60*1000);
+    document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
+}
+function getCookie123(name)//取cookies函数        
+{
+    var arr = document.cookie.match(new RegExp("(^| )"+name+"=([^;]*)(;|$)"));
+     if(arr != null) return unescape(arr[2]); return null;
+
+}
+function delCookie123()//删除cookie
+{
+	var name = "account"
+    var exp = new Date();
+    exp.setTime(exp.getTime() - 1);
+    var cval=getCookie123(name);
+    if(cval!=null) document.cookie= name + "="+cval+";expires="+exp.toGMTString()+";path=/";
+    location.reload()
+}
+
+</script>
+
+
+<div id="header">
+<!-- <button type="button" onclick="SetCookie()">写入</button> -->
+<!-- <button type="button" onclick="delCookie123()">登出</button> -->
+</div>
+
+<div id="nav">
+<ul>
+<li><a href="/domain/list">域名列表</a></li>
+<li><a href="/domain/select">域名查询</a></li>
+<li><a href="/domain/add">添加域名</a></li>
+</ul>
+</div>
+
+{% block contents %}Default contents{% end %}

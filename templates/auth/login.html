@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>用户登录</title>
+<style type="text/css">
+.login {
+	margin:auto;
+	position:fixed;
+	width: 300px;
+	height: 120px;
+	top:50%;
+	margin: -60px 0 0 -150px;
+	left:50%;
+#	background: green;
+}
+</style>
+</head>
+<body>
+<div class="login">
+	<h2>用户登录</h2>
+		<form method="post" action="/login" id="login">
+		 {% module xsrf_form_html() %}
+		<label for="from">用户：</label>
+		<input type='text' id="username" name="username"/><br>
+		<label for="from">密码：</label>
+		<input type='text' id="password" name="password"/><br>
+		<input type='submit'/> 
+		</form>
+	{% if err_msg %}
+		<font color="red">{{ err_msg }} <br></font>
+	{% end %}
+</div>
+</body>
+</html>

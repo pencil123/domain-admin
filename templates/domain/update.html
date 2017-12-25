@@ -1,0 +1,78 @@
+{% extends "../common/logout.html" %}
+
+{% block hello %}
+hello world
+{% end %}
+{% block contents %}
+
+
+<div id="my_form">
+<div class="form1_div">
+修改域名：{{dom['domain']}}
+</div>
+</div>
+
+<div id="single_info">
+
+<form action="/domain/edit" id="domsel" method = "post">
+<table>
+<tr><td class="parameter">使用部门</td><td><select name="user" form="domsel">
+{% for key,value in form_dict['user'].items() %}
+{% if 'default' in form_dict['user'] and key == form_dict['user']['default'] %}
+<option selected="selected" value="{{key}}">{{value}}</option>
+{% elif key != 'default' %}
+<option value="{{key}}">{{value}}</option>
+{% end %}
+{% end %}
+</select>
+</td></tr>
+
+<tr><td class="parameter">线路</td><td><select name="route" form="domsel">
+{% for key,value in form_dict['route'].items() %}
+{% if 'default' in form_dict['route'] and key == form_dict['route']['default'] %}
+<option selected="selected" value="{{key}}">{{value}}</option>
+{% elif key != 'default' %}
+<option value="{{key}}">{{value}}</option>
+{% end %}
+{% end %}
+</select>
+</td></tr>
+
+<tr><td class="parameter">购买方</td><td><select name="own" form="domsel">
+{% for key,value in form_dict['own'].items() %}
+{% if 'default' in form_dict['own'] and key == form_dict['own']['default'] %}
+<option selected="selected" value="{{key}}">{{value}}</option>
+{% elif key != 'default' %}
+<option value="{{key}}">{{value}}</option>
+{% end %}
+{% end %}
+</select>
+</td></tr>
+
+<tr><td class="parameter">安全证书</td><td><select name="https" form="domsel">
+{% for key,value in form_dict['https'].items() %}
+{% if 'default' in form_dict['https'] and key == form_dict['https']['default'] %}
+<option selected="selected" value="{{key}}">{{value}}</option>
+{% elif key != 'default' %}
+<option value="{{key}}">{{value}}</option>
+{% end %}
+{% end %}
+</select>
+</td></tr>
+
+<tr><td class="parameter">备注：</td><td>
+<input type="text" name="mark" form="domsel" value="{{dom['mark']}}">
+</td></tr>
+
+</table>
+
+<input type="hidden" name="domain" form="domsel" value="{{dom['domain']}}">
+
+<input type="submit" id="right_change">
+
+</form>
+</div>
+</div>
+	</body>
+</html>
+{% end %}
