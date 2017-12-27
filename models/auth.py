@@ -17,9 +17,8 @@ class Auth_model(object):
 		self.cursor_handler = sqlite_handler.cursor()
 
 	def check_login(self,username,password):
-		string = "select count(*) from user where name='%s' and password='%s'" % (username,password)
-		sql_string = tostr(string)
-		self.cursor_handler.execute(sql_string)
+		string = "select count(*) from user where name=? and password=?"
+		self.cursor_handler.execute(sql_string,(username,password))
 		result = self.cursor_handler.fetchone()
 		if result[0] == 0:
 			return False
@@ -29,10 +28,9 @@ class Auth_model(object):
 			return False
 
 	def register(self,username,password):
-		string = "insert into user(name,password) values('%s','%s')" % (username,password)
-		sql_string = tostr(string)
+		string = "insert into user(name,password) values(?,?)"
 		try:
-			self.cursor_handler.execute(sql_string)
+			self.cursor_handler.execute(sql_string,(username,password))
 			sqlite_handler.commit()
 		except sqlite3.IntegrityError:
 			return False
@@ -46,9 +44,8 @@ class Auth_model(object):
 #	supplement varchar(20)
 # 	);
 	def register_code(self,register_code):
-		string = "select count(*) from settings where setting = '%s' and parameter ='%s'" % ('register_code',register_code)
-		sql_string = tostr(string)
-		self.cursor_handler.execute(sql_string)
+		string = "select count(*) from settings where setting =? and parameter =?"
+		self.cursor_handler.execute(sql_string,('register_code',register_code))
 		result = self.cursor_handler.fetchone()
 		if result[0] == 0:
 			return False

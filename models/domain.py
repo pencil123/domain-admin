@@ -29,7 +29,7 @@ class Domain_model(object):
 
 	def list(self,where_dict={},page=1):
 		First_num = True
-		print where_dict
+		# print where_dict
 		where_sql = ''
 		for (k,v) in where_dict.items():
 			if First_num:
@@ -44,7 +44,7 @@ class Domain_model(object):
 				else:
 					where_sql += "and %s = %s " % (k,v)
 		items_start = int(page) -1
-		string = "select * from domain where %s order by id asc limit %s,20" % (where_sql,items_start*20)
+		string = "select id,domain,user,route,own,https,mark from domain where %s order by id asc limit %s,20" % (where_sql,items_start*20)
 		sql_string = tostr(string)
 		self.cursor_handler.execute(sql_string)
 		result = self.cursor_handler.fetchall()
@@ -92,7 +92,7 @@ class Domain_model(object):
 		return kind_dict
 
 	def single_info(self,domain):
-		string = "select * from domain where domain = '%s'" % (domain,)
+		string = "select id,domain,user,route,own,https,mark from domain where domain = '%s'" % (domain,)
 		sql_string = tostr(string)
 		self.cursor_handler.execute(sql_string)
 		result = self.cursor_handler.fetchone()

@@ -39,8 +39,8 @@ class RegisterHandler(tornado.web.RequestHandler):
 		result_exe = auth_modle.register(username,password)
 		if result_exe:
 			self.redirect("/")
-			return True
+			return None
 		else:
 			err_msg = "username is already exits"
 			self.render('auth/register.html',err_msg=err_msg)
-			return True
+			return None
