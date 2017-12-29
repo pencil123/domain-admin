@@ -70,7 +70,7 @@ class DomainSelect(BaseHandler):
 		form_dict = domain_modle.kind_domain()
 
 		if count != 1:
-			self.render('domain/num_domain.html',num_domain=count)
+			self.render('domain/notfound.html',num_domain=count)
 			return None
 
 		dom_info = domain_modle.single_info(dom)
@@ -152,9 +152,14 @@ class DomainList(BaseHandler):
 		for key in self.request.arguments:
 			if key == 'page':
 				current_page = int(self.get_argument('page'))
-			if key in set(['user','route','own','https']):
+				continue
+			elif key in set(['route','own','https']):
 				value = self.get_argument(key)
 				form_dict[key]['default'] = int(value)
+				pages_pre += "%s=%s&" % (key,value)
+			elif key == 'user':
+				value = self.get_argument(key)
+				form_dict[key] = int(value)
 				pages_pre += "%s=%s&" % (key,value)
 			else:
 				continue
@@ -174,7 +179,6 @@ class DomainList(BaseHandler):
 			stat_dict = {}
 			stat_dict['id'] = single[0]
 			stat_dict['domain'] = single[1]
-			stat_dict['user'] = form_dict['user'][single[2]]
 			stat_dict['route'] = form_dict['route'][single[3]]
 			stat_dict['own'] = form_dict['own'][single[4]]
 			stat_dict['https'] = form_dict['https'][single[5]]

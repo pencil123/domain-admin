@@ -8,11 +8,13 @@ auth_modle = Auth_model()
 class LoginHandler(tornado.web.RequestHandler):
 
 	def get(self):
+		#self.render('auth/login.html',err_msg='')
 		self.render('auth/login.html',err_msg='')
 
 	def post(self):
 		username = self.get_argument('username')
 		password = self.get_argument('password')
+		print username,password
 		user_exist = auth_modle.check_login(username,password)
 		if user_exist:
 			self.set_secure_cookie("account",username)

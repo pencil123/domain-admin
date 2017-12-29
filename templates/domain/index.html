@@ -1,26 +1,44 @@
-{% extends "../common/logout.html" %}
+ <!DOCTYPE html>
+<html>
 
-{% block hello %}
-hello world
-{% end %}
-{% block contents %}
-<form action="" id="domsel">
-<div id="my_form">
+<head>
 
-<div class="form1_div">
-使用部门：<select name="user" form="domsel">
-{% for key,value in form_dict['user'].items() %}
-{% if 'default' in form_dict['user'] and key == form_dict['user']['default'] %}
-<option selected="selected" value="{{key}}">{{value}}</option>
-{% elif key != 'default' %}
-<option value="{{key}}">{{value}}</option>
-{% end %}
-{% end %}
-</select>
-</div>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H+ 后台主题UI框架 - 基础表格</title>
+    <meta name="keywords" content="1">
+    <meta name="description" content="2">
 
-<div class="form1_div">
-线路：<select name="route" form="domsel">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="/static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/static/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="/static/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="/static/css/animate.css" rel="stylesheet">
+    <link href="/static/css/style.css?v=4.1.0" rel="stylesheet">
+    <link href="/static/css/my.css" rel="stylesheet">
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>域名列表</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                        <form action="" method="get">
+                            <div class="col-sm-7 form-horizontal m-b-xs">
+                            <div class="col-sm-3 input-group pull-left">
+                                <label class="col-sm-5 control-label">线路</label>
+                                <div class="col-sm-7">
+                                <select class="form-control" name="route">
 {% for key,value in form_dict['route'].items() %}
 {% if 'default' in form_dict['route'] and key == form_dict['route']['default'] %}
 <option selected="selected" value="{{key}}">{{value}}</option>
@@ -28,11 +46,14 @@ hello world
 <option value="{{key}}">{{value}}</option>
 {% end %}
 {% end %}
-</select>
-</div>
+                                </select>
+                                </div>
+                            </div>
 
-<div class="form1_div">
-购买方：<select name="own" form="domsel">
+                            <div class="col-sm-3 input-group pull-left">
+                                <label class="col-sm-5 control-label">购买者</label>
+                                <div class="col-sm-7">
+                                <select class="form-control" name="own">
 {% for key,value in form_dict['own'].items() %}
 {% if 'default' in form_dict['own'] and key == form_dict['own']['default'] %}
 <option selected="selected" value="{{key}}">{{value}}</option>
@@ -40,11 +61,14 @@ hello world
 <option value="{{key}}">{{value}}</option>
 {% end %}
 {% end %}
-</select>
-</div>
+                                </select>
+                                </div>
+                            </div>
 
-<div class="form1_div">
-安全证书：<select name="https" form="domsel">
+                            <div class="col-sm-3 input-group pull-left">
+                                <label class="col-sm-5 control-label">证书域名</label>
+                                <div class="col-sm-7">
+                                <select class="form-control" name="https">
 {% for key,value in form_dict['https'].items() %}
 {% if 'default' in form_dict['https'] and key == form_dict['https']['default'] %}
 <option selected="selected" value="{{key}}">{{value}}</option>
@@ -52,53 +76,97 @@ hello world
 <option value="{{key}}">{{value}}</option>
 {% end %}
 {% end %}
-</select>
-</div>
+                                </select>
+                                </div>
+                            </div>
+                            <input type="hidden" name="user" value="{{form_dict['user']}}">
+                            <div class="col-sm-1 pull-left">
+                                <button class="btn btn-primary" type="submit">查询</button>
+                            </div>
+                            </div>
+                        </form>
 
+                            <div class="col-sm-3">
+                            <form action="/domain/select" method="get">
+                                <div class="input-group">
+                                    <input type="text" placeholder="请输入域名" class="input-sm form-control" name="dom">
+                                    <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-sm btn-primary">搜索</button></span>
+                                </div>
+                            </form>
+                            </div>
+                        </div>
 
-<span>
-<input type="submit" id="my_input_submit" value="查询">
-</span>
-</div>
-</form>
-
-{% if Stats %}
-
-<div id="domainlist">
-
-        <table>
-        <tr>
-        <th align="left">域名</th>
-        <th align="left">使用</th>
-        <th align="left">线路</th>
-        <th align="left">所属</th>
-        <th align="left">安全</th>
-        <th align="left">备注</th>
-        <th align="left">修改</th>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>域名</th>
+                                        <th>线路</th>
+                                        <th>所属</th>
+                                        <th>证书</th>
+                                        <th>备注</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
         {% for stat in Stats %}
         <tr>
-        <td align="left" >{{stat['domain']}}</td>
-        <td align="left" >{{stat['user']}}</td>
+        <td align="left" ><a href="/domain/edit?dom={{stat['domain']}}">{{stat['domain']}}</a></td>
         <td align="left" >{{stat['route']}}</td>
         <td align="left" >{{stat['own']}}</td>
         <td align="left" >{{stat['https']}}</td>
         <td align="left" >{{stat['mark']}}</td>
-        <td align="left" ><a href="/domain/edit?dom={{stat['domain']}}">修改</a></td>
         </tr>
         {% end %}
-        </table>
-{% end %}
-</div>
+                                </tbody>
+                            </table>
+                        {% if pages_list %}
+                        <div class="col-sm-3 pull-right">
+                        <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
+                        <ul class="pagination pull-right">
+                        <li class="paginate_button" aria-controls="DataTables_Table_0"><a href="{{pages_list[0]}}">首页</a></li>
+                        <li class="paginate_button" aria-controls="DataTables_Table_0"><a href="{{pages_list[2]}}">上一页</a></li>
+                        <li class="paginate_button" aria-controls="DataTables_Table_0"><a>{{pages_list[1]}}</a></li>
+                        <li class="paginate_button" aria-controls="DataTables_Table_0"><a href="{{pages_list[3]}}">下一页</a></li>
+                        <li class="paginate_button" aria-controls="DataTables_Table_0"><a href="{{pages_list[4]}}">尾页</a></li>
+                        </ul></div>
+                        </div>
+                        {% end %}
+                        </div>
 
-{% if pages_list %}
-<div id="pages">
-<a href="{{pages_list[0]}}"><<</a>
-<a href="{{pages_list[2]}}">上一页</a>
-<a>{{pages_list[1]}}</a>
-<a href="{{pages_list[3]}}">下一页</a>
-<a href="{{pages_list[4]}}">>></a>
-</div>
-{% end %}
-	</body>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 全局js -->
+    <script src="/static/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/static/js/bootstrap.min.js?v=3.3.6"></script>
+
+    <!-- Peity -->
+    <script src="/static/js/plugins/peity/jquery.peity.min.js"></script>
+
+    <!-- 自定义js -->
+    <script src="/static/js/content.js?v=1.0.0"></script>
+
+
+    <!-- iCheck -->
+    <script src="/static/js/plugins/iCheck/icheck.min.js"></script>
+
+    <!-- Peity -->
+    <script src="/static/js/demo/peity-demo.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+        });
+    </script>
+
+</body>
+
 </html>
-{% end %}

@@ -45,6 +45,7 @@ class Domain_model(object):
 					where_sql += "and %s = %s " % (k,v)
 		items_start = int(page) -1
 		string = "select id,domain,user,route,own,https,mark from domain where %s order by id asc limit %s,20" % (where_sql,items_start*20)
+		print string
 		sql_string = tostr(string)
 		self.cursor_handler.execute(sql_string)
 		result = self.cursor_handler.fetchall()
@@ -86,7 +87,7 @@ class Domain_model(object):
 			if kind_dict.has_key(single[0]):
 				kind_dict[single[0]].update(ast.literal_eval(single[1]))
 			else:
-				kind_dict[single[0]] = {0:'Not Set'}
+				kind_dict[single[0]] = {0:'请选择'}
 				kind_dict[single[0]].update(ast.literal_eval(single[1]))
 
 		return kind_dict
